@@ -1,0 +1,315 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<script>
+  var CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<div class="container-fruid" id="">
+  <div class="tab-pane active" id="search_form" >    
+    <div class="form-row">
+        <div id="search-campaign-form" class="shadow-sm">
+            <h5>Search</h5>
+            <hr>
+            <div class="mycolumnleft">                
+                <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label for="fname">Data Frequency: </label>
+                    </div>
+                    <div style="width: 250px; margin-left: 5px;">
+                        <select title="---Please Select---"
+                            class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                            id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                            <option value="" title hidden></option>
+                            <option value="">Monthly</option>
+                            <option value="">Daily</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row mb-2">
+                  <div class="label-subject">
+                      <label for="fname">Entity Group: </label>
+                  </div>
+                  <div style="width: 250px; margin-left: 5px;">
+                      <select title="---Please Select---"
+                          class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                          id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                          <option value="" title hidden></option>
+                          <option value="">Credit Account</option>
+                          <option value="">Application</option>
+                      </select>
+                  </div>
+                </div>
+                  <div class="form-row mb-2">
+                        <div class="label-subject">
+                            <label for="fname">Status: </label>
+                        </div>
+                        <div style="width: 250px; margin-left: 5px;">
+                            <select title="---Please Select---"
+                                class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                                id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                                <option value="" title hidden></option>
+                                <option value="">Submit</option>
+                                <option value="">wait for send to BOT</option>
+                                <option value="">Basic Validation on BOT</option>
+                                <option value="">Complex Validation on BOT</option>
+                                <option value="">Cross Validation on BOT</option>
+                            </select>
+                        </div>
+              </div>
+              <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label for="fname">Submit By: </label>
+                    </div>
+                    <div style="width: 250px; margin-left: 5px;">
+                        <select title="---Please Select---"
+                            class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                            id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                            <option value="" title hidden></option>
+                            <option value="">User1</option>
+                            <option value="">User2</option>
+                        </select>
+                    </div>
+                  </div>
+            </div>
+        
+            <div class="mycolumnright">
+              <div class="form-row mb-2">
+                <div class="label-subject">
+                    <label>Data Date From:</label>
+                </div>
+                <div class="col-sm-auto">
+                    <div class="input-group" style="width: 250px;">
+                        <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                        <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                    onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label>Data Date To:</label>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="input-group" style="width: 250px;">
+                            <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                            <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                        onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label>Submit Date From:</label>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="input-group" style="width: 250px;">
+                            <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                            <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                        onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label>Submit Date To:</label>
+                    </div>
+                    <div class="col-sm-auto">
+                        <div class="input-group" style="width: 250px;">
+                            <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                            <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                        onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+
+                <div class="float-right">
+                    <button id="search_campaign_clear_btn" type="button" class="btn btn-sm btn-secondary text-white mt-2" data-toggle="tooltip" data-placement="right">
+                        <i class="clearicon"></i></button>
+                </div>
+
+                <div class="float-right mr-2">
+                    <button id="search_campaign_search_btn" type="button" class="btn btn-sm btn-primary text-white mt-2" style="width: 210px;">
+                        <i class="fas fa-search pr-1"></i>Search</button>
+                </div>
+
+            </div>
+        </div>
+    </div>   
+
+    <div class="mt-1" id="search_campaign_summary">
+     
+      <div id="summary_detail">
+
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                <table class="table table-sm table-hover dataTable" id="segment_income_digital_channel_table" role="grid" style="">
+                    <thead class="thead-dark" id="segment_income_digital_channel_header">
+                        <tr role="row">
+                            <th style="width: 31.2px;" data-sortable="false" class="sorting_disabled" rowspan="1" colspan="1"
+                                aria-label=""></th>
+                                <th>Entity Group</th>
+                                <th>Data Frequency</th>
+                                <th>Data Date</th>
+                                <th>Submit Date</th>
+                                <th>Submit By</th>
+                                <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="segment_income_digital_channel_body">
+                        <tr class="tbody-level1 odd" role="row">
+                            <td class="details-control"><i id="collapse_level1" class="btn btn-xs fa fa-minus collapsed"
+                                    data-toggle="collapse" data-target=".collapsed1" aria-expanded="false"></i></td>
+                            <td>Application</td>
+                            <td >Monthly</td>
+                            <td >08/2021</td>
+                            <td>15/08/2021 10:00:00 </td>
+                            <td>User1 </td>
+                            <td>Submit To BOT</td>
+                        </tr>
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.1 Application</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Basic Validation on BOT</td>
+                        </tr>
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.2 Application Customer</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Complex Validation on BOT</td>
+                        </tr>
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.3 Application Purpose</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Cross Validation on BOT</td>
+                        </tr>                        
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.4 Application Lending Business</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Basic Validation on BOT</td>
+                        </tr>                      
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.5 Application Loan Type</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Basic Validation on BOT</td>
+                        </tr> 
+                        <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                            <td></td>
+                            <td>2.6 Application Status</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td >Basic Validation on BOT</td>
+                        </tr> 
+                        <tr class="tbody-level1 odd" role="row">
+                                <td class="details-control"><i id="collapse_level1" class="btn btn-xs fa fa-minus collapsed"
+                                        data-toggle="collapse" data-target=".collapsed2" aria-expanded="false"></i></td>
+                                <td>Counterparty</td>
+                                <td >Monthly</td>
+                                <td >08/2021</td>
+                                <td>- </td>
+                                <td>- </td>
+                                <td>Wait for Approve To BOT</td>
+                            </tr>
+                            <tr class="tbody-level2 collapsed2 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.1 Counterparty x Id</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr>
+                            <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.2 Juristic Counterparty</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr>
+                            <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.3 Ordinary Counterparty</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr>                        
+                            <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.4 Business Loan Profile</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr>                      
+                            <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.5 Personal Loan Profile</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr> 
+                            <tr class="tbody-level2 collapsed1 even collapse" role="row" style="">
+                                <td></td>
+                                <td>4.6 Relationship to Reporter</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td >-</td>
+                            </tr> 
+                    </tbody>
+                    
+                </table>
+              </div>
+          </div>
+         
+
+      </div>
+    
+    
+    </div>
+
+
+
+</div>
+</div>
+<!-- /#content-home -->
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'assets/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'assets/js/multiselect.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+{% endblock extra_js %}

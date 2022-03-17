@@ -1,0 +1,13 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<script>
+  var CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+
+
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'assets/js/scripts_home.js' %}"></script> 
+{% endblock extra_js %}

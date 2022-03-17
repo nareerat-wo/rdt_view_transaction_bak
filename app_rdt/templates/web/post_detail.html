@@ -1,0 +1,91 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="container-fruid float-left" id="content-post">
+  <div class="row ml-1">
+    <!-- Post Content Column -->
+    <div class="col-9 card">
+
+      <!-- Title -->
+      <h3 class="mt-4 card-title">{{ object.title }}</h3>
+
+      <!-- Author -->
+      <p class="lead">
+        by
+        {% if post.author.first_name %}
+        {{ post.author.first_name }} {{ post.author.last_name }}
+        {% else %}
+        {{ post.author }}
+        {% endif %}
+      </p>
+
+      <!-- Date/Time -->
+      <p>
+        Posted on {{ object.date_posted|date:"F d, Y" }}
+        {% if object.author == user %}
+        <a href="{% url 'post-update' object.id %}"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'post-delete' object.id %}"><i class="fas fa-trash-alt" style="color:red"></i></a>
+        {% endif %}
+      </p>
+
+      <hr>
+
+      <!-- Post Content -->
+      <p>{{ object.content }}</p>
+
+    </div>
+    <div class="col-3">
+
+          <!-- Side Widget -->
+      <div class="card home-card">
+        <h6 class="card-header">What's New</h6>
+        <div class="card-body">
+          This is the updates of latest version<br>
+          <ul>
+            <li>Customer menu is available</li>
+            <li>Inquiry menu is available</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Custom Widget -->
+      <div class="card home-card">
+        <h6 class="card-header">Link Information</h6>
+        <div class="card-body">
+          <div class="row" style="margin-left:0px;">
+            <div class="col">
+              <p><a href="#"><i class="fas fa-key mr-2"></i> Unlock User Id/Reset Password</a></p>
+              <p><a href="#"><i class="fas fa-chalkboard-teacher mr-2"></i> Tutorials</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Side Widget -->
+      <div class="card home-card">
+        <h6 class="card-header">Contact</h6>
+        <div class="card-body">
+          <p>DSS Applied Data Platforms</p>
+          <div class="row" style="margin-left:0px;">
+            <div class="col-sm-1">
+              <i class="fas fa-envelope" style="color: #763594;"></i>
+            </div>
+            <div class="col-sm-10">
+              <p> dssapplieddataplatforms@scbcorp.onmicrosoft.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock content %}

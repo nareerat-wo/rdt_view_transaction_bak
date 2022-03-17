@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<header>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dataTables.bootstrap4.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-responsive.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/gijgo.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fontawesome-free/css/all.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/wow-alert.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-datepicker.css' %}">
+
+    <title>
+        {% if title %}
+        {{ title }} Page
+        {% else %}
+        Home Page
+        {% endif %}
+    </title>
+
+</header>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <a href="/">
+                    <img class="scb-logo-text" src="{% static 'assets/img/scb-logo-text.png' %}" height="45">
+                    <img class="scb-logo" src="{% static 'assets/img/scb-logo.png' %}" height="45">
+                </a>
+            </div>
+
+            <ul class="navbar-nav" id="sidebarmenu">
+                <!--
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <li id="campaignplanning_menu" class="{% if submenu %}active{% endif %}" hidden>
+                                    <a data-toggle="collapse" data-parent="#campaignplanning_menu" href="#collapseOne"><i class="fas fa-sitemap"></i><span>
+                                        View Dataset</span>
+                                    </a>
+                                </li>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in {% if submenu %}show{% endif %}" style="margin: 5px;">
+                            <div class="card panel-body collapse-inner rounded">
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'To do list' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Account</span>
+                                </a> 
+                                <a  class="collapse-item {% if title == 'Planning' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Application</span>
+                                </a>
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'Report' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Collateral and Guarantor</span>
+                                </a>
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Counterparty</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'To do list' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Credit Line</span>
+                                </a> 
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Planning' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Interest</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Report' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Movement</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Review</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>One-time</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <!-- ===================== -->
+                <!--
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <li id="campaignplanning_menu" class="{% if submenu %}active{% endif %}" >
+                                    <a data-toggle="collapse" data-parent="#campaignplanning_menu" href="#collapseOne1"><i class="fas fa-sitemap"></i><span>
+                                        Approval Dataset</span>
+                                    </a>
+                                </li>
+                        </div>
+                        <div id="collapseOne1" class="panel-collapse collapse in {% if submenu %}show{% endif %}" style="margin: 5px;">
+                            <div class="card panel-body collapse-inner rounded">
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'To do list' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Account</span>
+                                </a> 
+                                <a  class="collapse-item {% if title == 'Planning' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Application</span>
+                                </a>
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'Report' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Collateral and Guarantor</span>
+                                </a>
+                                <a id="campaignplanning_todolist_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Counterparty</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'To do list' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Credit Line</span>
+                                </a> 
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Planning' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Interest</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Report' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Movement</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>Review</span>
+                                </a>
+                                <a id="viewdataset_account_sub_menu" class="collapse-item {% if title == 'Master' %}active{% endif %}" href="{% url 'web-home' %}" >
+                                    <span>One-time</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <!-- ===================== -->
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <li id="submittobot_menu" class="{% if submenu %}active{% endif %}">
+                                <a data-toggle="collapse" data-parent="#submittobot_menu" href="#collapseOne"><i
+                                        class="fas fa-sitemap"></i><span>
+                                        Submit To BOT</span>
+                                </a>
+                            </li>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in {% if submenu %}show{% endif %}" style="margin: 5px;">
+                            <div class="card panel-body collapse-inner rounded">
+                                <a id="submission_sub_menu"
+                                    class="collapse-item {% if title == 'submitBOT' %}active{% endif %}" href="{% url 'submitBOT-submission' %}">
+                                    <span>Submission </span>
+                                </a>
+                                <a id="entitystatus_sub_menu" 
+                                    class="collapse-item {% if title == 'entitystatus' %}active{% endif %}" href="{% url 'submitBOT-entitystatus' %}">
+                                    <span>Entity Status Report</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===================== -->
+                <!--<div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <li id="campaignplanning_menu" class="{% if submenu %}active{% endif %}" >
+                                    <a data-toggle="collapse" data-parent="#campaignplanning_menu" href="#collapseTwo"><i class="fas fa-sitemap"></i><span>
+                                        Dashboard</span>
+                                    </a>
+                                </li>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in {% if submenu %}show{% endif %}" style="margin: 5px;">
+                            <div class="card panel-body collapse-inner rounded">
+                                <a  class="collapse-item {% if title == 'reconciliation' %}active{% endif %}" href="{% url 'dashboard-reconciliation' %}" >
+                                    <span>Reconciliation</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+                <!-- ===================== -->
+
+            </ul>
+            <hr>
+
+            <div id="version"> 
+                {% if web_version %} 
+                V{{ web_version }}
+                {% endif %}
+            </div>
+
+        </nav>
+
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand bg-white topbar mb-4 shadow">
+                <a style="cursor: pointer;" id="sidebarCollapse">
+                    <i class="fas fa-align-justify"></i>
+                </a>
+                <div class="nav_item">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a href="#"><i class="fa fa-bell pr-2" aria-hidden="true"></i></a>
+                        <span style="color: #999999;">|</span>
+                        <span class="top-left-name pr-2 pl-2">{{ user.first_name }} {{ user.last_name }}</span>
+                        <a href="#" data-toggle="dropdown">
+                            <img class="rounded-circle top-left-img" src="{{ user.profile.image.url }}">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt pr-2"></i>Logout</a>
+                        </div>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content">
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/js/gijgo.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootbox.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootbox.locales.min.js' %}"></script>
+    <script src="{% static 'assets/js/dataTables.bootstrap4.js' %}"></script>
+    <script src="{% static 'assets/js/chart.js' %}"></script>
+    <!-- <script src="{% static 'assets/js/wow-alert.js' %}"></script>-->
+    <script src="{% static 'assets/js/scripts_base.js' %}"></script>
+    <script src="{% static 'assets/js/date-uk.js' %}"></script>
+
+    {% block extra_js %}{% endblock extra_js %}
+
+</body>
+
+</html>

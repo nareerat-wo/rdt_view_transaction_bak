@@ -1,0 +1,148 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<header>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-responsive.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fontawesome-free/css/all.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <title>Login Page</title>
+
+</header>
+
+<body>
+    <div class="top-content">
+
+        <div class="inner-bg">
+            <!-- <div class="container"> -->
+                <div class="vertical-center">
+                    <div class="container">
+                        <div class="col-xs-1 text-center">
+                            {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ form.non_field_errors|striptags }}
+                            </div>
+                            {% endif %}
+                            <div id="login-error-alert"></div>
+                            <div class="login-logo">
+                                <img src="{% static 'assets/img/scb-logo.png' %}">
+                            </div>
+                            <div>
+                                <p class="login-title">
+                                    Welcome to RDT website
+                                </p>
+                                <p class="login-sub-title">
+                                    Regulatory Data Transformation
+                                </p>
+                            </div>
+                            <div class="text-center">
+                                <div>
+                                    <button id="microsoft-login" type="button" class="btn singin-btn">Sign in</button>
+                                    <input type="hidden" name="next" value="{{ next }}" />
+                                </div>
+                                <div hidden>
+                                    <button id="password-login" class="button" type="button">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- <div class="row">
+                    <div class="span5 offset7" >
+                        <div class="form-box">
+                            {% if messages %}
+                            <div class="alert alert-primary" role="alert" id="content-main">
+                                <i class="fas fa-sign-out-alt"></i>
+                                {% for message in messages %}
+                                {{ message }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                            <p class="errornote">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
+                            {% endif %}
+
+                            <div class="form-top">
+                                <div class="form-top-left">
+                                    <h3>Welcome to {% if "dssport" in site_name %} DSS Portal {% else %} RDT {% endif %} website</h3>
+                                    <p>Sign in using Azure Active Directory.</p>
+                                </div>
+                                <div class="form-top-right">
+                                    <img src="{% static 'assets/img/scb-logo.png' %}">
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ form.non_field_errors|striptags }}
+                                </div>
+                                {% endif %}
+                                <div id="login-error-alert">
+                                </div>
+
+                                <div>
+                                    <button id="microsoft-login" type="button" class="btn btn-block">Sign in</button>
+                                    <input type="hidden" name="next" value="{{ next }}" />
+                                </div>
+                                <div hidden>
+                                    <button id="password-login" class="button" type="button">Login</button>
+                                </div>
+                                <div class="mt-2 text-right text-white-50">
+                                    <small>Connected by <img src="{% static 'assets/img/Microsoft_Azure_white_trans-bg.png' %}" height="20px"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+
+            <!-- </div> -->
+        </div>
+          <div hidden>
+            <button id="password-login" class="button" type="button">Login</button>
+          </div>
+
+    </div>
+
+    <div id="version"> 
+        {% if web_version %} 
+        V{{ web_version }}
+        {% endif %}
+    </div>
+
+    <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'microsoft/js/login.js' %}"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded",
+            function (event) {
+                window.microsoft.login = new window.microsoft.objects.LoginController({
+                    'authorization_url': '{{ microsoft_authorization_url }}'
+                });
+            });
+
+        jQuery(document).ready(function () {
+            /* Fullscreen background */    
+            $.backstretch("{% static 'assets/img/foggy-forest.jpg' %}");
+        });
+        
+    </script>
+</body>
+
+</html>

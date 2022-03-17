@@ -1,0 +1,351 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<script>
+  var CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+
+<!--
+<div class="container-fruid" id="home-menu">
+  <a href="#" onclick="openNav('mySidenav')"><span class="mr-5"><i class="fas fa-envelope pr-1"></i>Contact</span></a>
+</div>
+<div id="mySidenav">
+    <h6><i class="fas fa-envelope pr-1"></i> Contact Information</h6>
+    <span>
+      Team : Applied Data Platforms <br>
+      Email : dssapplieddataplatforms@scbcorp.onmicrosoft.com
+    </span>
+  </div>
+-->
+<div class="container-fruid" id="">
+  <div class="tab-pane active" id="search_form" >    
+    <div class="form-row">
+        <div id="search-campaign-form" class="shadow-sm">
+            <h5>Search</h5>
+            <hr>
+            <div class="mycolumnleft">                
+                <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label for="fname">Data frequency: </label>
+                    </div>
+                    <div style="width: 250px; margin-left: 5px;">
+                        <select title="---Please Select---"
+                            class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                            id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                            <option value="" title hidden></option>
+                            <option value="">Monthly</option>
+                            <option value="">Daily</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row mb-2">
+                  <div class="label-subject">
+                      <label for="fname">Entity Group: </label>
+                  </div>
+                  <div style="width: 250px; margin-left: 5px;">
+                      <select title="---Please Select---"
+                          class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                          id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                          <option value="" title hidden></option>
+                          <option value="">Application</option>
+                          <option value="">Counterparty</option>
+                      </select>
+                  </div>
+              </div>
+            </div>
+        
+            <div class="mycolumnright">
+              <div class="form-row mb-2">
+                <div class="label-subject">
+                    <label>Data Date:</label>
+                </div>
+                <div class="col-sm-auto">
+                    <div class="input-group" style="width: 250px;">
+                        <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                        <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                    onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+      
+
+                <div class="float-right">
+                    <button id="search_campaign_clear_btn" type="button" class="btn btn-sm btn-secondary text-white mt-2" data-toggle="tooltip" data-placement="right">
+                        <i class="clearicon"></i></button>
+                </div>
+
+                <div class="float-right mr-2">
+                    <button id="search_campaign_search_btn" type="button" class="btn btn-sm btn-primary text-white mt-2" style="width: 210px;">
+                        <i class="fas fa-search pr-1"></i>Search</button>
+                </div>
+
+            </div>
+        </div>
+    </div>   
+
+    <div class="mt-1" id="search_campaign_summary">
+        <div id="summary_header">
+            <div class="mycolumnleft">
+                <div class="form-row">
+                    <h5>Entity Group: Application</h5>
+                </div>
+                <div class="form-row">
+                    <h6>Entity Group Validation status: <span class="badge badge-pill badge-danger">Fail</span></h6>
+                </div>
+            </div>
+            <div class="mycolumnright">
+                <div class="form-row">
+                    <div class="float-right mr-2">
+                        <button id="search_campaign_search_btn" type="button" class="btn btn-sm text-white mt-2"
+                            style="width: 150px; background-color: green;">
+                            <i class="fas fa-check pr-1"></i>Approve</button>
+                    </div>
+                    <div class="float-right mr-2">
+                        <button id="search_campaign_search_btn" type="button" class="btn btn-sm text-white mt-2"
+                            style="width: 150px; background-color: red;">
+                            <i class="fas fa-ban pr-1"></i>Reject</button>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br />
+        </div>
+      <div id="summary_detail">
+          <!-- Data Entity 2.1-->
+          <div class="horizontal-line campign-edit-form"></div>           
+          <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info1" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-down mr-2"></i>2.1 Application (DER_APP)<span class="badge badge-pill badge-success">Pass</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info1">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                          <tr class="text-left">
+                              <td>CNAPP001</th>
+                              <td>[DER_APP.Application Amount in Original Currency] > 0</th>
+                              <td>Application Amount in Original Currency ต้องมีค่ามากกว่า 0</th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-success">Pass</span></th>
+                          </tr>
+
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+           <!-- Data Entity 2.2-->
+           <!--<div class="horizontal-line campign-edit-form"></div>-->
+           <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info2" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-right mr-2"></i>2.2 Application Customer (DER_APPC)
+                <span class="badge badge-pill badge-danger">Fail</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info2">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                          <tr class="text-left">
+                              <td>RIAPPC001</th>
+                              <td>[DER_APPC.Application Id] EXISTS IN [DER_APP.Application Id]</th>
+                              <td>Application Id ที่ Application Customer (DER_APPC) ต้องมีอยู่ใน Application Id ที่ Application (DER_APP)</th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-danger">Fail</span></th>
+                          </tr>
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+          <!-- Data Entity 2.3-->
+          <!--<div class="horizontal-line campign-edit-form"></div>  -->        
+          <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info3" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-right mr-2"></i>2.3 Application Purpose (DER_APPP)
+                <span class="badge badge-pill badge-secondary">Pending</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info3">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                          <tr class="text-left">
+                              <td >RIAPPP001</th>
+                              <td>[DER_APPP.Application Id],[DER_APPP.Currency] EXISTS IN ...</th>
+                              <td>Application Id และ Currency ที่ Application Purpose (DER_APPP) ... </th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-secondary">Pending</span></th>
+                          </tr>
+
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+          <!-- Data Entity 2.4-->
+          <!--<div class="horizontal-line campign-edit-form"></div> -->         
+          <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info3" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-right mr-2"></i>2.4 Application Lending Business (DER_APPLB)
+                <span class="badge badge-pill badge-success">Pass</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info3">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                          <tr class="text-left">
+                              <td >RIAPPLB001</th>
+                              <td>[DER_APPLB.Application Id],[DER_APPLB.Currency] EXISTS IN ...</th>
+                              <td>Application Id และ Currency ที่ Application Lending Business  ... </th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-success">Pending</span></th>
+                          </tr>
+
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+          <!-- Data Entity 2.5-->
+          <!--<div class="horizontal-line campign-edit-form"></div> -->          
+          <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info3" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-right mr-2"></i>2.5 Application Loan Type (DER_APPLT)
+                <span class="badge badge-pill badge-success">Pass</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info3">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+                          <tr class="text-left">
+                              <td >RIAPPLT001</th>
+                              <td>[DER_APPLT.Application Id],[DER_APPLT.Currency] EXISTS IN  ...</th>
+                              <td>Application Id และ Currency ที่ Application Loan Type (DER_APPLT)  ... </th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-success">Pass</span></th>
+                          </tr>
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+          <!-- Data Entity 2.6-->
+          <!--<div class="horizontal-line campign-edit-form"></div>  -->         
+          <header class="campign-edit-form">
+              <a href="#" data-toggle="collapse" data-target="#collapse_info6" aria-expanded="true"
+              class="collapse-toggle collapsed">
+              <h6><i class="icon-action fa fa-angle-down mr-2"></i>2.6 Application Status (DER_APPS)
+                <span class="badge badge-pill badge-danger">Fail</span></h6>
+          </a>
+          </header>
+          <div class="collapse show campign-edit-form" id="collapse_info6">
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Validation Id</th>
+                              <th>Validation Rule</th>
+                              <th>Validation Description</th>
+                              <th>Validation Step</th>
+                              <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody id="inquiry_summary_body">
+                          <tr class="text-left">
+                              <td >CMAPPS001</th>
+                              <td>IF [DER_APPS.Application Status] = ‘2000500002’ 
+                                  THEN 
+                                  [DER_APPS.Approval Amount in ...</th>
+                              <td>Approval Amount in Original Currency ต้องมีค่า และมีค่ามากกว่า 0 และ Group ... </th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-success">Pass</span></th>
+                          </tr>
+                          <tr class="text-left">
+                              <td >RIAPPS001</th>
+                              <td>[DER_APPS.Application Id],[DER_APPS.Currency] EXISTS IN ...</th>
+                              <td>Application Id และ Currency ที่ Application Status (DER_APPS) ต้องมี... </th>
+                              <td>Complex</th>
+                              <td><span class="badge badge-pill badge-danger">Fail</span></th>
+                          </tr>
+                      </tbody>
+                  </table> 
+              </div>
+          </div>
+
+      </div>
+    
+    
+    </div>
+
+
+
+</div>
+</div>
+<!-- /#content-home -->
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'assets/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'assets/js/multiselect.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+{% endblock extra_js %}

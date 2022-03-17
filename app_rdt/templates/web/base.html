@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<header>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dataTables.bootstrap4.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-responsive.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/gijgo.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fontawesome-free/css/all.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/wow-alert.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/dataTables.checkboxes.css' %}">
+
+    
+
+    <title>
+        {% if title %}
+        {{ title }} Page
+        {% else %}
+        Home Page
+        {% endif %}
+    </title>
+
+</header>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="main-menu-bar">
+            <a class="navbar-brand" href="/">
+              <img class="scb-logo" src="{% static 'assets/img/scb-logo.png' %}" height="30px"class="d-inline-block align-top">
+              
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav main-menu">
+                  <li class="nav-item {% if title == 'Home' %}active{% endif %}" >
+                    <a class="nav-link" href="{% url 'web-home' %}" >Home</a>
+                  </li>
+                  <li class="nav-item {% if title == 'Data Entity' %}active{% endif %}">
+                    <a class="nav-link" href="#menu1-tab">Data Entity</a>
+                  </li>
+                  <li class="nav-item {% if title == 'Submission' %}active{% endif %}">
+                    <a class="nav-link" href="#menu2-tab" >Submission</a>
+                  </li>
+                  <li class="nav-item {% if title == 'Export' %}active{% endif %}">
+                    <a class="nav-link" href="#menu3-tab" >Export</a>
+                  </li>
+                  <li class="nav-item {% if title == 'Data Issue' %}active{% endif %}">
+                    <a class="nav-link" href="#menu4-tab">Data Issue</a>
+                  </li>
+                  <li class="nav-item {% if title == 'User Data Entry' %}active{% endif %}">
+                    <a class="nav-link" href="#menu5-tab">User Data Entry</a>
+                  </li>
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a href="#"><i class="fa fa-bell pr-2" aria-hidden="true" style="color: #af9ab0;"></i></a>
+                        <span style="color: #999999;">|</span>
+                        <span class="top-left-name pr-2 pl-2" style="color: #fff;">{{ user.first_name }} {{ user.last_name }}</span>
+                        <a href="#" data-toggle="dropdown">
+                            <img class="rounded-circle top-left-img" src="{{ user.profile.image.url }}" height="30">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog pr-2"></i>Workflow Configure</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user pr-2"></i>User Management</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt pr-2"></i>Logout</a>
+                        </div>
+                    </div>
+
+            {% endif %}
+        </nav>
+
+          <div class="tab-content" id='sub-menu'>
+            <div id="menu1-tab" class="tab-pane">
+                <ul>
+                    <li class="nav-item {% if submenu == 'View Data Entity' %}active{% endif %}"><a class="nav-link" href="{% url 'dataEntity-view' %}">View & Approve Data Entity</a></li>
+                    <li class="nav-item {% if submenu == 'Approve Adjust Data Entity' %}active{% endif %}"><a class="nav-link" href="#">Approve Adjust Data Entity</a></li>
+                </ul>
+            </div>
+            <div id="menu2-tab" class="tab-pane">
+                <ul>
+                    <li class="nav-item {% if submenu == 'Submit to BOT' %}active{% endif %}"><a class="nav-link" href="#">Submit to BOT</a></li>
+                    <li class="nav-item {% if submenu == 'View Submission Result' %}active{% endif %}"><a class="nav-link" href="#">View Submission Result</a></li>
+                </ul>
+            </div>
+            <div id="menu3-tab" class="tab-pane">
+              
+            </div>
+            <div id="menu4-tab" class="tab-pane">
+
+            </div>
+            <div id="menu5-tab" class="tab-pane">
+                <ul>
+                    <li class="nav-item {% if submenu == 'Submit to BOT' %}active{% endif %}"><a class="nav-link" href="#">User Data Entry</a></li>
+                    <li class="nav-item {% if submenu == 'View Submission Result' %}active{% endif %}"><a class="nav-link" href="#">Approve User Data Entry</a></li>
+                </ul>
+            </div>
+          </div>
+
+          
+        <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.dataTables.js' %}"></script>
+        <script src="{% static 'assets/js/jquery-ui.js' %}"></script>
+        <script src="{% static 'assets/js/gijgo.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootbox.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootbox.locales.min.js' %}"></script>
+        <script src="{% static 'assets/js/dataTables.bootstrap4.js' %}"></script>
+        <script src="{% static 'assets/js/chart.js' %}"></script>
+        <script src="{% static 'assets/js/dataTables.checkboxes.min.js' %}"></script>
+        <!-- <script src="{% static 'assets/js/wow-alert.js' %}"></script>-->
+        <script src="{% static 'assets/js/scripts_base.js' %}"></script>
+        <script src="{% static 'assets/js/date-uk.js' %}"></script>
+
+        <!-- Page Content -->
+        <div id="content">
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    {% block extra_js %}{% endblock extra_js %}
+
+</body>
+
+</html>

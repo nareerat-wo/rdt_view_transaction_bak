@@ -1,0 +1,254 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<script>
+  var CSRF_TOKEN = "{{ csrf_token }}";
+  var entity_group_dic = "{{ entity_group }}"
+  var entity_name_dic = "{{ entity_name }}"
+  var frequency_dic = "{{ frequency_bot_abbr }}"
+  var criteria_dic = "{{ criteria }}"
+  var classification_dic = "{{ classification }}"
+  var view_tx_result_dic = "{{ view_tx_result }}"
+</script>
+<div class="container-fluid" id="search-entity">
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="type-of-view">Type of View</label>
+                <select class="form-control form-control-sm" id="type-of-view">
+                    <option value="transaction">Transaction</option>
+                    <option value="aggregation">Aggregation</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="data-entity-group">Data Entity Group</label>
+                <select class="form-control form-control-sm" id="data-entity-group">
+                    <!-- <option>Credit Account</option> -->
+                    <!-- {% for data in entity_group %}
+                    <option value="{{ data.Data_Entity_Group }}">{{ data.Data_Entity_Group}}</option>
+                    {% endfor %} -->
+                </select>
+            </div>
+        </div>
+
+        <!-- <div class="col">
+            <div class="form-group">
+                <div id='loadingDataEntityGroup' style="visibility: hidden;">
+                    <img id="loading-image" src="{% static 'assets/img/Spinner-1s-50px.gif' %}">
+                </div>
+            </div>
+        </div> -->
+
+        <div class="col">
+            <div class="form-group">
+                <label for="data-entity-name">Data Entity Name</label>
+                <select class="form-control form-control-sm" id="data-entity-name">
+                    <!-- {% for data in entity_name %}
+                    <option value="{{ data.BOT_ABBR }}">{{ data.Data_Entity_Name }}({{ data.BOT_ABBR }})</option>
+                    {% endfor %} -->
+                    <!-- <option>Credit Account (DER_CAC)</option>
+                    <option>Credit Account Detail (DER_CACD)</option>
+                    <option>Credit Card (DER_CC)</option>
+                    <option>Mortgage Loan (DER_MGL)</option>
+                    <option>Project Finance (DER_PJF)</option>
+                    <option>FX Loan (DER_FXL)</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="product">Product</label>
+                <select class="form-control form-control-sm" id="product">
+                    {% for data in product_master %}
+                    <option value="{{ data.product_code }}">{{ data.product_name}}</option>
+                    {% endfor %}
+                    <!-- <option>Portfolio</option>
+                    <option>Risk Assessment</option>
+                    <option>Debt Restructuring</option>
+                    <option>Legal Operation</option>
+                    <option>Credit Review</option>
+                    <option>Counterparty</option>
+                    <option>Credit Card</option>
+                    <option>Speedy Cash</option>
+                    <option>Speedy Loan</option>
+                    <option>Auto</option> -->
+                </select>
+            </div>
+        </div>
+        <!-- <div class="col">
+            <div class="form-group">
+                <label for="type-of-view">Type of View</label>
+                <select class="form-control form-control-sm" id="type-of-view">
+                    <option value="transaction">Transaction</option>
+                    <option value="aggregation">Aggregation</option>
+                </select>
+            </div>
+        </div> -->
+        <div class="col-xs col-mid">
+            <div class="center-vertically">
+                <button class="btn" type="button" id="btn-search-entity"><i class="fas fa-lg fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="search-criteria">
+    <!-- <div class="form-row" id="criteria1"> -->
+        <!-- <div class="col">
+            <div class="form-group">
+                <label for="criteriaSelect1">Frequency</label>
+                <select class="form-control form-control-sm" id="criteriaSelect1">
+                    <option>Daily</option>
+                    <option>Monthly</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Data Date</label>
+                <input id="datepickers" class="form-control form-control-sm"  />
+            </div>
+        </div> -->
+
+
+        <!-- <div class="col">
+            <div class="form-group">
+                <label for="criteriaSelect1">Frequency</label>
+                <select class="form-control form-control-sm" id="criteriaSelect1">
+                    <option>Daily</option>
+                    <option>Monthly</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Data Date</label>
+                <input id="datepickers" class="form-control form-control-sm"  />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Account Id</label>
+                <input type="text" class="form-control form-control-sm" placeholder="(Optional)">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Entity Id</label>
+                <input type="text" class="form-control form-control-sm" placeholder="(Optional)">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Branch Number</label>
+                <select class="form-control form-control-sm" id="exampleSelect1">
+                    <option>0222 สำนักงานใหญ่ รัชโยธิน (HEAD OFFICE)</option>
+                    <option>0001 ชิดลม</option>
+                    <option>0002 สุรวงษ์</option>
+                    <option>0003 บางลำพู</option>
+                    <option>0004 อาคารสหประชาชาติ</option>
+                    <option>0005 สะพานเหลือง</option>
+                    <option>0006 ตรีเพชร</option>
+                    <option>0007 ราชวงศ์</option>
+                    <option>0010 ลาดพร้าว ซอย 59</option>
+                    <option>0012 ลาดหญ้า</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">Loan and Contingent</label>
+                <select class="form-control form-control-sm" id="exampleSelect1">
+                    <option>2003200001 เงินให้สินเชื่อ</option>
+                    <option>2003200002 เงินเบิกเกินบัญชี</option>
+                    <option>2003200024 สินเชื่อบัตรเครดิต</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleSelect1">New Flag</label>
+                <select class="form-control form-control-sm" id="exampleSelect1">
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </div>
+        </div> -->
+        <!-- <div id="btn-criteria-div">   
+            <button id="btn-criteria" class="btn btn-sm float-right" type="button"><i class="fas fa-filter"></i> Apply</button>
+        </div> -->
+    <!-- </div> -->
+    <!-- <div>   
+        <button id="btn-criteria" class="btn btn-sm float-right" type="button"><i class="fas fa-filter"></i> Apply</button>
+    </div> -->
+    <!-- <div class="form-row text-right">
+        <div>   
+            <button id="btn-criteria" class="btn btn-sm float-right" type="button"><i class="fas fa-filter"></i> Apply</button>
+        </div>
+    </div> -->
+</div>
+<div class="container-fluid mt-5" id="content-view-data-entity">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Credit Account (DER_CAC)</a>
+        </li>
+        <div class="label-info">Validation Status: <span id="validation-status" class="label-vstatus"></span><small id="date-v"></small></div> 
+        <div class="label-info">Status: <span class="label-status">Wait for Approve</span><small> (15-Jan-22)</small></div>
+        <div class="label-info">Total: <span id="total-records" class="label-vstatus"></span><small id="total-records-s"> Records</small></div>
+    </ul>
+    <div class="tab-content" id="content-data">
+        <div>
+            <table id="data-entity-tbl" class="table table-hover table-sm table-bordered" cellspacing="0" width="100%">
+                <!-- <thead class="thead-dark text-nowrap"></thead> -->
+            </table>            
+        </div>
+        <center id="txt" style="display: none;"><label> Data is not ready </label></center>
+    </div>
+    <!-- <div id='loading' style="visibility: visible;">
+        <img id="loading-image" src="{% static 'assets/img/inprogress.gif' %}">
+    </div> -->
+
+    <div>
+        <nav class="nav navbar justify-content-center fixed-bottom navbar-expand-lg" id="bottom-bar">
+            <form class="form-inline">
+                <button class="btn btn-success btn-sm" type="button">Approve Data</button>
+                <button class="btn btn-primary btn-sm" type="button">Adjust Data</button>
+                <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">Log Data Issue</button>
+            </form>
+        </nav>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Log data issue</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Log data issue</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<div id='loading' style="visibility: hidden;">
+    <img id="loading-image" src="{% static 'assets/img/inprogress.gif' %}">
+</div>
+
+
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'assets/js/scripts_view_data_entity.js' %}"></script>
+<script src="{% static 'assets/js/multiselect.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+
+{% endblock extra_js %}

@@ -1,0 +1,145 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<script>
+  var CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<div class="container-fruid" id="">
+    <div class="tab-pane active" id="search_form" >    
+      <div class="form-row">
+          <div id="search-campaign-form" class="shadow-sm">
+              <h5>Search</h5>
+              <hr>
+              <div class="mycolumnleft">                
+                  <div class="form-row mb-2">
+                      <div class="label-subject">
+                          <label for="fname">Data frequency: </label>
+                      </div>
+                      <div style="width: 250px; margin-left: 5px;">
+                          <select title="---Please Select---"
+                              class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                              id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                              <option value="" title hidden></option>
+                              <option value="">Monthly</option>
+                              <option value="">Daily</option>
+                          </select>
+                      </div>
+                  </div>
+                  
+                  <div class="form-row mb-2">
+                    <div class="label-subject">
+                        <label for="fname">Entity Group: </label>
+                    </div>
+                    <div style="width: 250px; margin-left: 5px;">
+                        <select title="---Please Select---"
+                            class="form-control form-control-sm value-group select_segment_and_product" style="width: 250px;"
+                            id="search_campaign_segment" name="search_campaign_segment[]" onchange="search_removeDefault()">
+                            <option value="" title hidden></option>
+                            <option value="">Application</option>
+                            <option value="">Counterparty</option>
+                        </select>
+                    </div>
+                </div>
+              </div>
+          
+              <div class="mycolumnright">
+                <div class="form-row mb-2">
+                  <div class="label-subject">
+                      <label>Data Date:</label>
+                  </div>
+                  <div class="col-sm-auto">
+                      <div class="input-group" style="width: 250px;">
+                          <input class="datepicker form-control form-control-sm" id="search_start_date_from" readonly='true' />
+                          <div class="input-group-append"><span class="input-group-text px-1"><i class="far fa-calendar-alt"
+                                      onclick="$('#search_start_date_from').datepicker();$('#search_start_date_from').datepicker('show');" style="cursor: pointer;"></i></span>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+        
+  
+                  <div class="float-right">
+                      <button id="search_campaign_clear_btn" type="button" class="btn btn-sm btn-secondary text-white mt-2" data-toggle="tooltip" data-placement="right">
+                          <i class="clearicon"></i></button>
+                  </div>
+  
+                  <div class="float-right mr-2">
+                      <button id="search_campaign_search_btn" type="button" class="btn btn-sm btn-primary text-white mt-2" style="width: 210px;">
+                          <i class="fas fa-search pr-1"></i>Search</button>
+                  </div>
+  
+              </div>
+          </div>
+      </div>   
+
+    <div class="mt-1" id="search_campaign_summary">
+        <div class=" form-rowmycolumnright">
+            <div class="form-row">
+                <div class="float-right mr-2">
+                    <button id="search_campaign_search_btn" type="button" class="btn btn-sm text-white mt-2"
+                        style="width: 150px; background-color: green;">
+                        <i class="fas fa-check pr-1"></i>Approve</button>
+                </div>
+                <div class="float-right mr-2">
+                    <button id="search_campaign_search_btn" type="button" class="btn btn-sm text-white mt-2"
+                        style="width: 150px; background-color: red;">
+                        <i class="fas fa-ban pr-1"></i>Reject</button>
+                </div>
+            </div>
+        </div>
+      <div id="summary_detail">
+
+              <div class="form-row">
+                  <div class="horizontal-line"></div>
+                  <table class="table table-sm table-hover" id="inquiry_summary_Table">
+                      <thead class="thead-dark">
+                          <tr class="text-center">
+                              <th>Data Frequency</th>
+                              <th>Entity Group</th>
+                              <th>Entity Group Validation status</th>
+                          </tr>
+                      </thead>
+                    <tbody id="inquiry_summary_body">
+                        <tr class="text-left">
+                            <td>Monthly</td>
+                            <td>Application</td>
+                            <td class="text-center"><span class="badge badge-pill badge-success">Pass</span></td>
+                        </tr>
+                        <tr class="text-left">
+                            <td>Monthly</td>
+                            <td>Counterparty</td>
+                            <td class="text-center"><span class="badge badge-pill badge-success">Pass</span></td>
+                        </tr>
+                        <tr class="text-left">
+                            <td>Monthly</td>
+                            <td>Credit Account</td>
+                            <td class="text-center"><span class="badge badge-pill badge-success">Pass</span></td>
+                        </tr>
+                        <tr class="text-left">
+                            <td>Monthly</td>
+                            <td>Collateral and Guarantor</td>
+                            <td class="text-center"><span class="badge badge-pill badge-success">Pass</span></td>
+                        </tr>
+                    </tbody>
+                  </table> 
+              </div>
+          </div>
+         
+
+      </div>
+    
+    
+    </div>
+
+
+
+</div>
+</div>
+<!-- /#content-home -->
+{% endblock content %}
+{% block extra_js %}
+<script src="{% static 'assets/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'assets/js/multiselect.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+{% endblock extra_js %}
